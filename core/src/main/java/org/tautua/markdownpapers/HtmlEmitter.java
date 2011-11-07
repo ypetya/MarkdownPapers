@@ -29,7 +29,9 @@ import static org.tautua.markdownpapers.util.Utils.*;
  * @author Larry Ruiz
  */
 public class HtmlEmitter implements Visitor {
-    private Appendable buffer;
+    private final Appendable buffer;
+    
+    String[] blockingTags = {"iframe","object"};
 
     public HtmlEmitter(Appendable buffer) {
         this.buffer = buffer;
@@ -242,8 +244,21 @@ public class HtmlEmitter implements Visitor {
             append("\"");
         }
 
-        if(node.jjtGetNumChildren() == 0) {
+        boolean blocking = false;
+        for(String itag : blockingTags) {
+        	if( itag.compareToIgnoreCase(node.getName()) == 0) {
+        		blocking = true;
+        		break;
+        	}
+        }
+        
+        if(node.jjtGetNumChildren() == 0 && !blocking) {
             append("/>");
+        } else if(node.jjtGetNumChildren() == 0 && blocking) {
+        	append(">");
+        	append("</");
+            append(node.getName());
+            append(">");
         } else {
             append(">");
             node.childrenAccept(this);
