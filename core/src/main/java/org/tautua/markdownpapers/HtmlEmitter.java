@@ -31,7 +31,7 @@ import static org.tautua.markdownpapers.util.Utils.*;
 public class HtmlEmitter implements Visitor {
     private final Appendable buffer;
     
-    String[] blockingTags = {"iframe","object"};
+    String[] blockingTags = {"iframe","object","script","span"};
 
     public HtmlEmitter(Appendable buffer) {
         this.buffer = buffer;
