@@ -16,13 +16,38 @@
 
 package org.tautua.markdownpapers;
 
-import org.tautua.markdownpapers.ast.*;
-import org.tautua.markdownpapers.util.DequeStack;
-import org.tautua.markdownpapers.util.Stack;
+import static org.tautua.markdownpapers.util.Utils.EOL;
+import static org.tautua.markdownpapers.util.Utils.SPACE;
+import static org.tautua.markdownpapers.util.Utils.escape;
 
 import java.io.IOException;
 
-import static org.tautua.markdownpapers.util.Utils.*;
+import org.tautua.markdownpapers.ast.CharRef;
+import org.tautua.markdownpapers.ast.Code;
+import org.tautua.markdownpapers.ast.CodeSpan;
+import org.tautua.markdownpapers.ast.CodeText;
+import org.tautua.markdownpapers.ast.Comment;
+import org.tautua.markdownpapers.ast.Document;
+import org.tautua.markdownpapers.ast.Emphasis;
+import org.tautua.markdownpapers.ast.Header;
+import org.tautua.markdownpapers.ast.Image;
+import org.tautua.markdownpapers.ast.InlineUrl;
+import org.tautua.markdownpapers.ast.Item;
+import org.tautua.markdownpapers.ast.Line;
+import org.tautua.markdownpapers.ast.LineBreak;
+import org.tautua.markdownpapers.ast.Link;
+import org.tautua.markdownpapers.ast.List;
+import org.tautua.markdownpapers.ast.Node;
+import org.tautua.markdownpapers.ast.Paragraph;
+import org.tautua.markdownpapers.ast.Quote;
+import org.tautua.markdownpapers.ast.Resource;
+import org.tautua.markdownpapers.ast.ResourceDefinition;
+import org.tautua.markdownpapers.ast.Ruler;
+import org.tautua.markdownpapers.ast.SimpleNode;
+import org.tautua.markdownpapers.ast.Tag;
+import org.tautua.markdownpapers.ast.TagAttribute;
+import org.tautua.markdownpapers.ast.Text;
+import org.tautua.markdownpapers.ast.Visitor;
 /**
  * <p>HTML generator.</p>
  *
@@ -31,7 +56,7 @@ import static org.tautua.markdownpapers.util.Utils.*;
 public class HtmlEmitter implements Visitor {
     private final Appendable buffer;
     
-    String[] blockingTags = {"iframe","object","script","span"};
+    String[] blockingTags = {"iframe","object","script","span","embed"};
 
     public HtmlEmitter(Appendable buffer) {
         this.buffer = buffer;
