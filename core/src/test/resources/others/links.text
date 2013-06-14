@@ -1,3 +1,6 @@
+[
+no_link]
+
 [text][id]
 
 [text 2][id_2]
@@ -10,6 +13,13 @@
 
 [text-6](http://localhost/another-path.jpg "title '-+/*%#$!{}()[]")
 
+[text 7](http://localhost/#!/path)
+
 [id]: http://localhost/path_to#id                   
 [id_2]: http://localhost/path_to_file#id "title"      
 
+[text 8](http://www.example-0.com)
+
+[text 9][id_9]
+
+[id_9]: http://www.example-0.com
